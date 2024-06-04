@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Ghi Âm Chrome",
+  "description": "Phần mở rộng này ghi âm âm thanh từ tab hiện tại và lưu trữ tệp âm thanh khi hoàn tất.",
+  "version": "1.0",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Mở giao diện Ghi Âm Chrome"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "tabs",
+    "tabCapture",
+    "downloads",
+    "storage",
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*"
+      ],
+      "js": [
+        "contentScript.js",
+        "script.js"
+      ],
+      "css": [
+        "highlight.css"
+      ]
+    }
+  ]
+}
