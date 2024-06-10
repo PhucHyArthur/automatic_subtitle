@@ -232,46 +232,49 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //Function Call API
     function sendAudioToApi(recordedChunks) {
-
         const startTime = Date.now();
         console.log("Start time", startTime);
 
         console.log(`Bắt đầu gửi dữ liệu đến API tại: ${new Date().toLocaleTimeString()}`);
 
+        // Tạo Blob từ các chunks
         let recordedBlob = new Blob(recordedChunks, { type: 'audio/webm' });
 
-        let formData = new FormData();
-        formData.append('file', recordedBlob, 'recordedAudio.webm');
-
-        fetch('http://localhost:3000/transcribe', {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                // console.log('Transcription:', data);
-                const endTime = Date.now();
-                console.log("End time", endTime);
-                console.log("Total time ", endTime - startTime);
-
-                console.log(`API Response tại: ${new Date().toLocaleTimeString()}`, data);
-
-                // Đảm bảo content script đã được inject và sẵn sàng nhận tin nhắn
-                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                    if (tabs[0]) {
-                        chrome.tabs.sendMessage(tabs[0].id, { type: 'transcription', data: data }, (response) => {
-                            if (chrome.runtime.lastError) {
-                                console.error(chrome.runtime.lastError.message);
-                            } else {
-                                console.log('Message sent to content script', response);
-                            }
-                        });
-                    }
-                });
+        // Chuyển Blob thành ArrayBuffer
+        recordedBlob.arrayBuffer().then(arrayBuffer => {
+            console.log("arrayBuffer", arrayBuffer);
+            fetch('http://localhost:3000/transcribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'audio/webm' // Đặt đúng Content-Type
+                },
+                body: arrayBuffer // Gửi ArrayBuffer trực tiếp
             })
+                .then(response => response.json())
+                .then(data => {
+                    const endTime = Date.now();
+                    console.log("End time", endTime);
+                    console.log("Total time ", endTime - startTime);
 
-            .catch(error => console.error('Error:', error));
+                    console.log(`API Response tại: ${new Date().toLocaleTimeString()}`, data);
+
+                    // Đảm bảo content script đã được inject và sẵn sàng nhận tin nhắn
+                    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                        if (tabs[0]) {
+                            chrome.tabs.sendMessage(tabs[0].id, { type: 'transcription', data: data }, (response) => {
+                                if (chrome.runtime.lastError) {
+                                    console.error(chrome.runtime.lastError.message);
+                                } else {
+                                    console.log('Message sent to content script', response);
+                                }
+                            });
+                        }
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }).catch(error => console.error('Error converting Blob to ArrayBuffer:', error));
     }
+
 
 
     // Các thẻ audio
