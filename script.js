@@ -1,46 +1,14 @@
-// const url = window.location.href;
+// script.js
+// Yêu cầu service-worker gửi dữ liệu đến trang này
+chrome.runtime.sendMessage({ type: 'init' });
 
-// if (url.indexOf("dashboard.") < 0) {
-//     console.log("1");
-//     setInterval(() => {
-//         console.log("12");
-//         const videos = document.getElementById("themeProvider");
-//         console.log("videos", videos);
-//         // for (let i = 0; i < videos.length; i++) {
-//         //     if (
-//         //         videos.length > 2 &&
-//         //         videos[i].parentElement &&
-//         //         videos[i].parentElement.childNodes &&
-//         //         videos[i].parentElement.childNodes.length <= 2
-//         //     ) {
-//         //         const button = document.createElement("buttonabc");
-//         //         button.textContent = "x";
-//         //         button.classList.add("chrome-extension-button");
-//         //         button.onclick = function (e) {
-//         //             e.stopPropagation();
-//         //             if (button.classList.contains("highlight")) {
-//         //                 button.classList.remove("highlight");
-//         //             } else {
-//         //                 button.classList.add("highlight");
-//         //             }
-//         //         };
-//         //         videos[i].parentElement.appendChild(button);
-//         //     }
-//         // }
-//         const button = document.createElement("buttonabc");
-//         button.textContent = "x";
-//         button.classList.add("chrome-extension-button");
-//         button.onclick = function (e) {
-//             e.stopPropagation();
-//             if (button.classList.contains("highlight")) {
-//                 button.classList.remove("highlight");
-//             } else {
-//                 button.classList.add("highlight");
-//             }
-//         };
-//         videos.parentElement.appendChild(button);
-//         console.log("123");
-//     }, 5000);
-// }
+// Lắng nghe tin nhắn để hiển thị dữ liệu
+chrome.runtime.onMessage.addListener((message) => {
+    if (message.type === 'display') {
+        const resultDiv = document.getElementById('result');
+        resultDiv.textContent = JSON.stringify(message.apiResponse, null, 2);
+    }
+});
 
-// themeProvider
+
+window.open("", "huh", "width=320,height=210,scrollbars=no,toolbar=no,screenx=0,screeny=0,location=no,titlebar=no,directories=no,status=no,menubar=no");

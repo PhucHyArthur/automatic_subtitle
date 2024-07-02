@@ -1,17 +1,104 @@
-.chrome-extension-button {
-    background-color: #eefae0;
-    color: #eefae0;
-    font-size: 0;
-    position: absolute;
-    bottom: 0.5rem;
-    right: 0;
-    padding: 1rem;
-    border-radius: 50%;
-    margin: 1rem 1rem 0 0;
-    z-index: 99999;
+/* style.css */
+
+.overlay {
+    position: fixed;
+    top: 60%;
+    left: 35%;
+    width: auto;
+    min-width: 20%;
+    max-width: 40%;
+    height: auto;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.65);
+    z-index: 9999;
+    cursor: move;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid white;
 }
 
-.chrome-extension-button.highlight {
-    background-color: #72cc18;
-    color: #72cc18;
+.title {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+
+
+.hello {
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+    
+}
+
+.divkhung {
+    position: relative;
+    /* Đặt khung A làm khung chứa */
+    width: 100%;
+    height: auto;
+    /* Đặt top là 0 để khung A nằm sát viền trên */
+
+}
+
+
+
+.close-button {
+    position: absolute;
+    /* Đặt vị trí của nút là tuyệt đối, dựa trên khung A */
+    top: 0;
+    /* Cách lề trên của khung A 0px */
+    right: 0;
+    /* Cách lề trái của khung A 0px */
+    width: 15px;
+    /* Chiều rộng của nút */
+    height: 15px;
+    /* Chiều cao của nút */
+    border: none;
+    background-color: transparent;
+    /* Nền trong suốt */
+    color: #666;
+    /* Màu chữ */
+    font-size: 18px;
+    /* Kích thước chữ */
+    cursor: pointer;
+    /* Con trỏ tay khi di chuột qua */
+}
+
+.close-button:before,
+.close-button:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    /* Độ dày của đường */
+    background-color: #666;
+    /* Màu của đường */
+}
+
+.close-button:before {
+    transform: rotate(45deg);
+    /* Xoay 45 độ */
+}
+
+.close-button:after {
+    transform: rotate(-45deg);
+    /* Xoay -45 độ */
+}
+
+
+.close-button:hover::before {
+    background-color: white;
+    /* Màu nền khi di chuột qua */
+}
+
+
+.close-button:hover::after {
+    background-color: white;
+    /* Màu nền khi di chuột qua */
 }

@@ -7,15 +7,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Audio Recorder</title>
 </head>
+<style>
+  #rectangle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 100px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
 
 <body>
   <button id="startButton">Start Recording</button>
+  <button id="open">Open</button>
+
   <button id="stopButton">Stop Recording</button>
   <audio controls id="recordedAudio1"></audio>
   <audio controls id="recordedAudio2"></audio>
   <audio controls id="recordedAudio3"></audio>
   <div>Total audio</div>
+
   <audio controls id="recordedAudio"></audio>
+
+  <button id="showRectangleButton">Show Rectangle</button>
+
   <script src="popup.js"></script>
 </body>
 
