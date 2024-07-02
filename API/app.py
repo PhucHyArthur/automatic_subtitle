@@ -641,6 +641,9 @@ def process_files():
         if result : 
             socketio.emit('transcription_result', {'transcription': result})
         file_queue.task_done()
+        os.remove(webm_file_path)
+        os.remove(output_path)
+        
 
 async def process_file(webm_file_path, output_path):
     global array_temps
