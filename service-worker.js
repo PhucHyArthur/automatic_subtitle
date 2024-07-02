@@ -48,3 +48,4 @@ chrome.runtime.onMessage.addListener(async (message) => {
         });
     }
 });
+
