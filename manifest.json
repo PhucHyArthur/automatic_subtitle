@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "123Ghi Âm Chrome",
+  "description": "Phần mở rộng này ghi âm âm thanh từ tab hiện tại và lưu trữ tệp âm thanh khi hoàn tất.",
+  "version": "313",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Mở giao diện Ghi Âm Chrome"
+  },
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "permissions": [
+    "tabs",
+    "tabCapture",
+    "downloads",
+    "activeTab",
+    "offscreen"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*"
+      ],
+      "js": [
+        "contentScript.js"
+      ],
+      "css": [
+        "highlight.css"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "offscreen.html",
+        "libs/socket.io.min.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}
