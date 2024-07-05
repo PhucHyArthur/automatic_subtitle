@@ -76,6 +76,17 @@ function createOverlay(data) {
 // Lắng nghe sự kiện từ background hoặc popup
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.type === 'transcription') {
+        const savedEndTime = Number(localStorage.getItem('endTime'));
+        const savedStartTime = Number(localStorage.getItem('startTime'));
+        const reqInfor = localStorage.getItem('reqInfor');
+        const totalTime = savedEndTime - savedStartTime;
+        console.log('Start time:', savedStartTime);
+        console.log('End time:', savedEndTime);
+        console.log('Total time:', totalTime);
+        console.log('ReqInfor:', reqInfor);
+        console.log('ReponInfor:', message.reponInfor);
+
+
         console.log('Transcription:', message.data);
 
         // Cập nhật hoặc tạo cửa sổ overlay với dữ liệu mới từ message

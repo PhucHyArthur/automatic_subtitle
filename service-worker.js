@@ -42,7 +42,8 @@ chrome.runtime.onMessage.addListener(async (message) => {
             if (tabs[0]) {
                 chrome.tabs.sendMessage(tabs[0].id, {
                     type: 'transcription',
-                    data: message.data
+                    data: message.data,
+                    reponInfor: message.reponInfor,
                 });
             }
         });
